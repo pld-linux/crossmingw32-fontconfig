@@ -60,7 +60,7 @@ Este pacote contém as ferramentas e documentação.
 
 %prep
 %setup -q -n %{_realname}-%{version}
-%patch0 -p1
+#%patch0 -p1
 %patch1 -p1
 %if %{with bytecode}
 %patch2 -p1
@@ -75,12 +75,12 @@ export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
 %{__autoheader}
 %{__automake}
 %configure \
-	AR="%{target}-ar" \
-	RANLIB="%{target}-ranlib" \
 	--target=%{target} \
-	--host=%{target_platform} \
-	--with-arch=%{target_platform} \
+	--host=%{target} \
+	--with-arch=%{target} \
 	--disable-docs
+
+#%{__sed} -i -e 's/^deplibs_check_method=.*/deplibs_check_method="pass_all"/' libtool
 
 %{__make}
 
@@ -112,7 +112,9 @@ umask 022
 #%{_sysconfdir}/fonts/conf.avail/README
 #%dir %{_sysconfdir}/fonts/conf.d
 #%config(noreplace,missingok) %verify(not link md5 mtime size) %{_sysconfdir}/fonts/conf.d/*.conf
-%attr(755,root,root) %{_libdir}/lib*.la
-%attr(755,root,root) %{_libdir}/lib*.a
-%{_includedir}/fontconfig
+%{_libdir}/lib*.la
+%{_libdir}/lib*.a
+%{_bindir}/*.dll
+%dir %{_includedir}/fontconfig
+%{_includedir}/fontconfig/*.h
 %{_pkgconfigdir}/fontconfig.pc
