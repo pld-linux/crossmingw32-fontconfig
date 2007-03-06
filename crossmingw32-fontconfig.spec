@@ -12,10 +12,9 @@ License:	MIT
 Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{_realname}-%{version}.tar.gz
 # Source0-md5:	f035852f521b54677f2b5c9e2f6d54a4
-Patch0:		%{name}-dll.patch
-Patch1:		%{_realname}-blacklist.patch
-Patch2:		%{_realname}-autohint.patch
-Patch3:		%{_realname}-bitstream-cyberbit.patch
+Patch0:		%{_realname}-blacklist.patch
+Patch1:		%{_realname}-autohint.patch
+Patch2:		%{_realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -81,12 +80,11 @@ Biblioteka DLL freetype dla Windows.
 
 %prep
 %setup -q -n %{_realname}-%{version}
-#%patch0 -p1
-%patch1 -p1
+%patch0 -p1
 %if %{with bytecode}
-%patch2 -p1
+%patch1 -p1
 %endif
-%patch3 -p1
+%patch2 -p1
 
 %build
 export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
