@@ -1,7 +1,4 @@
 #
-# Conditional build
-%bcond_with	bytecode	# use bytecode hinting instead of autohinting by default
-#
 %define		_realname   fontconfig
 Summary:	Font configuration and customization tools - cross Mingw32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla Mingw32
@@ -13,8 +10,7 @@ Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{_realname}-%{version}.tar.gz
 # Source0-md5:	f035852f521b54677f2b5c9e2f6d54a4
 Patch0:		%{_realname}-blacklist.patch
-Patch1:		%{_realname}-autohint.patch
-Patch2:		%{_realname}-bitstream-cyberbit.patch
+Patch1:		%{_realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -81,10 +77,7 @@ Biblioteka DLL freetype dla Windows.
 %prep
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
-%if %{with bytecode}
 %patch1 -p1
-%endif
-%patch2 -p1
 
 %build
 export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
