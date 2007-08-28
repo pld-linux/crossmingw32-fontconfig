@@ -18,7 +18,7 @@ BuildRequires:	crossmingw32-expat
 BuildRequires:	crossmingw32-freetype >= 2.1.5
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	libtool
-BuildRequires:	pkgconfig
+BuildRequires:	pkgconfig >= 1:0.15
 Requires:	crossmingw32-expat
 Requires:	crossmingw32-freetype >= 2.1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -27,7 +27,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target			i386-mingw32
 %define		target_platform 	i386-pc-mingw32
-%define		arch			%{_prefix}/%{target}
 
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
@@ -80,7 +79,7 @@ Biblioteka DLL freetype dla Windows.
 %patch1 -p1
 
 %build
-export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
+export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
