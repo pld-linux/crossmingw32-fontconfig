@@ -96,7 +96,7 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
