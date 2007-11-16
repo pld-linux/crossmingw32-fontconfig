@@ -1,16 +1,15 @@
-#
-%define		_realname   fontconfig
+%define		realname   fontconfig
 Summary:	Font configuration and customization tools - cross Mingw32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla Mingw32
-Name:		crossmingw32-%{_realname}
-Version:	2.4.2
+Name:		crossmingw32-%{realname}
+Version:	2.5.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
-Source0:	http://fontconfig.org/release/%{_realname}-%{version}.tar.gz
-# Source0-md5:	f035852f521b54677f2b5c9e2f6d54a4
-Patch0:		%{_realname}-blacklist.patch
-Patch1:		%{_realname}-bitstream-cyberbit.patch
+Source0:	http://fontconfig.org/release/%{realname}-%{version}.tar.gz
+# Source0-md5:	21d14af8ecf645ef76211c782cdd7aeb
+Patch0:		%{realname}-blacklist.patch
+Patch1:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -74,7 +73,7 @@ DLL freetype library for Windows.
 Biblioteka DLL freetype dla Windows.
 
 %prep
-%setup -q -n %{_realname}-%{version}
+%setup -q -n %{realname}-%{version}
 %patch0 -p1
 %patch1 -p1
 
