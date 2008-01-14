@@ -29,7 +29,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
-%define		_pkgconfigdir		%{_libdir}/pkgconfig
+%define		_libdir			%{_prefix}/lib
+%define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
 %define		_dlldir			/usr/share/wine/windows/system
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
