@@ -2,12 +2,12 @@
 Summary:	Font configuration and customization tools - cross Mingw32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla Mingw32
 Name:		crossmingw32-%{realname}
-Version:	2.5.0
+Version:	2.6.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	21d14af8ecf645ef76211c782cdd7aeb
+# Source0-md5:	ab54ec1d4ddd836313fdbc0cd5299d6d
 Patch0:		%{realname}-blacklist.patch
 Patch1:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
