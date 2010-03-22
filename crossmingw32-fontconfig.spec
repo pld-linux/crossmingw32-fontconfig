@@ -2,12 +2,12 @@
 Summary:	Font configuration and customization tools - cross Mingw32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla Mingw32
 Name:		crossmingw32-%{realname}
-Version:	2.6.0
+Version:	2.8.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	ab54ec1d4ddd836313fdbc0cd5299d6d
+# Source0-md5:	77e15a92006ddc2adbb06f840d591c0e
 Patch0:		%{realname}-blacklist.patch
 Patch1:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
@@ -34,6 +34,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_dlldir			/usr/share/wine/windows/system
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
+
+%ifnarch %{ix86}
+# arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
+%define		optflags	-O2
+%endif
+# -z options are invalid for mingw linker
+%define		filterout_ld	-Wl,-z,.*
 
 %description
 Fontconfig is designed to locate fonts within the system and select
