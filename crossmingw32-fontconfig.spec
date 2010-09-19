@@ -1,6 +1,6 @@
 %define		realname   fontconfig
-Summary:	Font configuration and customization tools - cross Mingw32 versoin
-Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla Mingw32
+Summary:	Font configuration and customization tools - cross MinGW32 versoin
+Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	2.8.0
 Release:	1
@@ -55,16 +55,16 @@ systemie i wybierania ich w zależności od potrzeb aplikacji.
 Paket ten zawiera wersję skrośną dla Win32.
 
 %package static
-Summary:	Static freetype library (cross mingw32 version)
-Summary(pl.UTF-8):	Statyczna biblioteka freetype (wersja skrośna mingw32)
+Summary:	Static freetype library (cross MinGW32 version)
+Summary(pl.UTF-8):	Statyczna biblioteka freetype (wersja skrośna MinGW32)
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description static
-Static freetype library (cross mingw32 version).
+Static freetype library (cross MinGW32 version).
 
 %description static -l pl.UTF-8
-Statyczna biblioteka freetype (wersja skrośna mingw32).
+Statyczna biblioteka freetype (wersja skrośna MinGW32).
 
 %package dll
 Summary:	DLL freetype library for Windows
