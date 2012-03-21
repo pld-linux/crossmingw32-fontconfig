@@ -2,12 +2,12 @@
 Summary:	Font configuration and customization tools - cross MinGW32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	2.8.0
+Version:	2.9.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	77e15a92006ddc2adbb06f840d591c0e
+# Source0-md5:	26c83855ed256b5c032baae032fadc4f
 Patch0:		%{realname}-blacklist.patch
 Patch1:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
@@ -96,7 +96,9 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 	--target=%{target} \
 	--host=%{target} \
 	--with-arch=%{target} \
-	--disable-docs
+	--with-freetype-config="pkg-config freetype2" \
+	--disable-docs \
+	--disable-silent-rules
 
 %{__make}
 
@@ -114,9 +116,9 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/man
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/man
 # runtime
-rm -rf $RPM_BUILD_ROOT/etc/fonts
+%{__rm} -r $RPM_BUILD_ROOT/etc/fonts
 
 %clean
 rm -rf $RPM_BUILD_ROOT
