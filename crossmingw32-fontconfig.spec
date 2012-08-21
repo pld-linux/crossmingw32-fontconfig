@@ -2,12 +2,12 @@
 Summary:	Font configuration and customization tools - cross MinGW32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	2.9.0
+Version:	2.10.1
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	26c83855ed256b5c032baae032fadc4f
+# Source0-md5:	c94e380eea42f2f23ca9537035ef1899
 Patch0:		%{realname}-blacklist.patch
 Patch1:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
@@ -116,9 +116,9 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/man
 # runtime
-%{__rm} -r $RPM_BUILD_ROOT/etc/fonts
+%{__rm} -r $RPM_BUILD_ROOT/etc/fonts \
+	$RPM_BUILD_ROOT%{_datadir}/{fontconfig,xml/fontconfig}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
