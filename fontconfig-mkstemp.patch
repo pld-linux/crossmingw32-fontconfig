@@ -1,0 +1,29 @@
+From dffb69ed8c7cf2e707bc692f94b51108b772d9d8 Mon Sep 17 00:00:00 2001
+From: Akira TAGOH <akira@tagoh.org>
+Date: Tue, 15 Jan 2013 08:26:27 +0000
+Subject: Fix the build fail on MinGW
+
+Reported at http://lists.freedesktop.org/archives/fontconfig/2013-January/004601.html
+
+just warn at the runtime instead of the compile time. it somewhat works
+on even MinGW since FcMakeTempfile() isn't used on Win32 so far.
+---
+diff --git a/src/fccompat.c b/src/fccompat.c
+index 169cab9..2aa29dd 100644
+--- a/src/fccompat.c
++++ b/src/fccompat.c
+@@ -100,7 +100,11 @@ FcMakeTempfile (char *template)
+        return -1;
+    fd = FcOpen(template, O_RDWR | O_EXCL | O_CREAT, 0600);
+ #else
+-#error no secure functions to create a temporary file
++   /* warn at the runtime for just debugging purpose why something may
++    * goes wrong. mingw may not have one, but it shouldn't be reached since
++    * this function isn't used so far.
++    */
++   fprintf(stderr, "Fontconfig warning: No secure functions to create a temporary file\n");
+ #endif
+ 
+     return fd;
+--
+cgit v0.9.0.2-2-gbebe
