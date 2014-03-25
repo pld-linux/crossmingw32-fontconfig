@@ -2,13 +2,14 @@
 Summary:	Font configuration and customization tools - cross MinGW32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	2.11.0
-Release:	2
+Version:	2.11.1
+Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	http://fontconfig.org/release/%{realname}-%{version}.tar.bz2
-# Source0-md5:	000bd4baf7aefa828e03414d0c8c7dc5
+# Source0-md5:	824d000eb737af6e16c826dd3b2d6c90
 Patch0:		%{realname}-bitstream-cyberbit.patch
+Patch1:		%{realname}-mingw32.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11
@@ -86,6 +87,7 @@ Biblioteka DLL freetype dla Windows.
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 # uses POSIX-specific dirent interfaces
 %{__sed} -i -e 's/test-migration//' test/Makefile.am
@@ -103,15 +105,18 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 	--with-arch=%{target} \
 	--with-freetype-config="pkg-config freetype2" \
 	--disable-docs \
-	--disable-silent-rules
+	--disable-silent-rules \
+	--enable-static
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+# fc_cachedir=/dummy is to avoid creating ${DESTDIR}LOCAL_APPDATA_FONTCONFIG_CACHE dir
 %{__make} -j1 install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	fc_cachedir=/dummy
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
 mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
