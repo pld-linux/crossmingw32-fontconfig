@@ -2,24 +2,25 @@
 Summary:	Font configuration and customization tools - cross MinGW32 versoin
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	2.12.6
+Version:	2.13.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/fontconfig/release/%{realname}-%{version}.tar.bz2
-# Source0-md5:	733f5e2371ca77b69707bd7b30cc2163
+# Source0-md5:	60d2394a79d3b2e5db2daea55193fa47
 Patch0:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	crossmingw32-expat
-BuildRequires:	crossmingw32-freetype >= 2.1.5
+BuildRequires:	crossmingw32-freetype >= 2.8.1
 BuildRequires:	crossmingw32-gcc
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.15
 BuildRequires:	sed >= 4.0
 Requires:	crossmingw32-expat
-Requires:	crossmingw32-freetype >= 2.1.5
+Requires:	crossmingw32-freetype >= 2.8.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
@@ -74,7 +75,7 @@ Summary:	DLL freetype library for Windows
 Summary(pl.UTF-8):	Biblioteka DLL freetype dla Windows
 Group:		Applications/Emulators
 Requires:	crossmingw32-expat-dll
-Requires:	crossmingw32-freetype-dll >= 2.1.5
+Requires:	crossmingw32-freetype-dll >= 2.8.1
 Requires:	wine
 
 %description dll
@@ -92,6 +93,7 @@ Biblioteka DLL freetype dla Windows.
 
 %build
 export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
+%{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
@@ -117,7 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 	fc_cachedir=/dummy
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
-mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 
 %if 0%{!?debug:1}
 %{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
@@ -126,7 +128,10 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 
 # runtime
 %{__rm} -r $RPM_BUILD_ROOT/etc/fonts \
-	$RPM_BUILD_ROOT%{_datadir}/{fontconfig,xml/fontconfig}
+	$RPM_BUILD_ROOT%{_datadir}/{fontconfig,locale,xml/fontconfig}
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/fc-*.exe
+# if needed, use ITS data from native package
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/gettext/its
 
 %clean
 rm -rf $RPM_BUILD_ROOT
