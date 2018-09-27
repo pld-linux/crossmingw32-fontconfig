@@ -1,5 +1,5 @@
 %define		realname   fontconfig
-Summary:	Font configuration and customization tools - cross MinGW32 versoin
+Summary:	Font configuration and customization tools - cross MinGW32 version
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	2.13.1
