@@ -41,7 +41,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %ifnarch %{ix86}
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
-%define		optflags	-O2
+# i486 instructions required for atomic operations
+%define		optflags	-O2 -march=i486
 %endif
 # -z options are invalid for mingw linker, most of -f options are Linux-specific
 %define		filterout_ld	-Wl,-z,.*
