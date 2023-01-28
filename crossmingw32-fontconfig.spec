@@ -2,12 +2,12 @@
 Summary:	Font configuration and customization tools - cross MinGW32 version
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	2.14.1
+Version:	2.14.2
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/fontconfig/release/%{realname}-%{version}.tar.xz
-# Source0-md5:	d110d7a2636d420ae6ed9d2cf92002a4
+# Source0-md5:	95261910ea727b5dd116b06fbfd84b1f
 Patch0:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf >= 2.61
@@ -102,7 +102,6 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 	--target=%{target} \
 	--host=%{target} \
 	--with-arch=%{target} \
-	--with-freetype-config="pkg-config freetype2" \
 	--disable-docs \
 	--disable-silent-rules \
 	--enable-static
