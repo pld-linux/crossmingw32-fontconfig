@@ -18,6 +18,7 @@ BuildRequires:	crossmingw32-gcc
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.15
+BuildRequires:	rpmbuild(macros) >= 2.036
 BuildRequires:	sed >= 4.0
 Requires:	crossmingw32-expat
 Requires:	crossmingw32-freetype >= 2.9
