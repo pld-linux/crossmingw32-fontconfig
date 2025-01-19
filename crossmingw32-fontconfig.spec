@@ -2,25 +2,25 @@
 Summary:	Font configuration and customization tools - cross MinGW32 version
 Summary(pl.UTF-8):	Narzędzia do konfigurowania fontów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	2.15.0
+Version:	2.16.0
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://www.freedesktop.org/software/fontconfig/release/%{realname}-%{version}.tar.xz
-# Source0-md5:	5bb3a2829aecb22ae553c39099bd0d6a
+# Source0-md5:	20d5466544aa62d18c94106faa169a09
 Patch0:		%{realname}-bitstream-cyberbit.patch
 URL:		http://fontconfig.org/
 BuildRequires:	autoconf >= 2.71
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	crossmingw32-expat
-BuildRequires:	crossmingw32-freetype >= 2.8.1
+BuildRequires:	crossmingw32-freetype >= 2.9
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig >= 1:0.15
 BuildRequires:	sed >= 4.0
 Requires:	crossmingw32-expat
-Requires:	crossmingw32-freetype >= 2.8.1
+Requires:	crossmingw32-freetype >= 2.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
@@ -77,7 +77,7 @@ Summary:	DLL freetype library for Windows
 Summary(pl.UTF-8):	Biblioteka DLL freetype dla Windows
 Group:		Applications/Emulators
 Requires:	crossmingw32-expat-dll
-Requires:	crossmingw32-freetype-dll >= 2.8.1
+Requires:	crossmingw32-freetype-dll >= 2.9
 Requires:	wine
 
 %description dll
@@ -88,10 +88,11 @@ Biblioteka DLL freetype dla Windows.
 
 %prep
 %setup -q -n %{realname}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
+%{__gettextize -d po-conf}
 %{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
@@ -136,7 +137,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING ChangeLog NEWS README.md
+%doc AUTHORS COPYING NEWS README.md
 %{_libdir}/libfontconfig.dll.a
 %{_libdir}/libfontconfig.la
 %{_libdir}/fontconfig.def
